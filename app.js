@@ -115,6 +115,7 @@ app.put('/edit/:id', ensureAuth, async (req, res) => {
         if (!story) {
             return res.render('error/404')
         }
+        
         else {
             console.log(req.body)
             story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
@@ -131,7 +132,7 @@ app.put('/edit/:id', ensureAuth, async (req, res) => {
     }
 })
 app.get("/stories/delete/:id",ensureAuth,function(req,res){
-    console.log(req.params.id)
+    // console.log(req.params.id)
     Story.findOneAndRemove({_id:req.params.id},function(err,docs){
         if(err){
             console.log(err)
@@ -142,12 +143,13 @@ app.get("/stories/delete/:id",ensureAuth,function(req,res){
     })
 })
 app.get("/stories/:id",ensureAuth,function(req,res){
+    // console.log(req.params.id)
     Story.findOne({_id:req.params.id}, function (err, docs) {
         if(err){
             console.log(err)
         }
         else{
-            console.log(docs)
+            // console.log(docs)
             res.render("stories/each_story",{docs:docs})
         }
     });
@@ -177,6 +179,7 @@ let port=process.env.PORT;
 if(port==null || port==""){
     port=3000;
 }
+console.log(process.env)
 
 app.listen(port, function () {
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
